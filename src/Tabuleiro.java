@@ -6,7 +6,7 @@ public class Tabuleiro {
 
 
     //determina se alguem ganhou
-    private boolean someone_win;
+    private boolean someoneWin;
 
 
     //faz todos os elementos da matriz ser igual 0
@@ -17,7 +17,7 @@ public class Tabuleiro {
                 matriz[i][j] = '*';
             }
         }
-        someone_win = false;
+        someoneWin = false;
     }
 
 
@@ -32,11 +32,11 @@ public class Tabuleiro {
     }
 
     public void setSomeone_win(boolean someone_win) {
-        this.someone_win = someone_win;
+        this.someoneWin = someone_win;
     }
 
-    public boolean getSome_win(){
-        return this.someone_win;
+    public boolean getSomeoneWin(){
+        return this.someoneWin;
     }
 
 
@@ -45,7 +45,7 @@ public class Tabuleiro {
         int tipo_aux = jogada_atual.getPlayer().getType();
 
         //se n tiver ganhado
-        if(this.getSome_win()==false) {
+        if(this.getSomeoneWin()==false) {
             //impede de jpgar em posicao invalida
             if (jogada_atual.getLinha()>=0 && jogada_atual.getLinha()<3
                 && jogada_atual.getColuna()>=0 && jogada_atual.getColuna()<3) {
@@ -86,6 +86,9 @@ public class Tabuleiro {
                 System.out.println("O jogador "+jogada_atual.getPlayer().getNome()+" ganhou");
                 this.setSomeone_win(true);
             }
+
+            //testa se empatou
+            this.Draw_Game();
         }
 
     }
@@ -96,10 +99,10 @@ public class Tabuleiro {
 
         //verificar se os jogadores tem tipos diferentes, é obrigatório
         if (jog1.getType() != jog2.getType()) {
-            while (this.getSome_win() == false) {
+            while (this.getSomeoneWin() == false) {
 
                 //Se o contador é par, o jogador 1 joga
-                if (contVez % 2 == 0 && this.getSome_win() == false) {
+                if (contVez % 2 == 0 && this.getSomeoneWin() == false) {
                     Scanner lin1 = new Scanner(System.in);
                     Scanner col1 = new Scanner(System.in);
                     System.out.print("\n\n" + jog1.getNome() + ", Insira a linha: ");
@@ -116,7 +119,7 @@ public class Tabuleiro {
                 }
 
                 //se o contador é impar, o jogador 2 joga
-                if (contVez % 2 != 0 && this.getSome_win() == false) {
+                if (contVez % 2 != 0 && this.getSomeoneWin() == false) {
                     Scanner lin2 = new Scanner(System.in);
                     Scanner col2 = new Scanner(System.in);
                     System.out.print("\n\n" + jog2.getNome() + ", Insira a linha: ");
@@ -138,6 +141,24 @@ public class Tabuleiro {
             System.out.println("--------------------------------------------");
             System.out.println("Os dois jogadores não podem ter o mesmo tipo");
             System.out.println("--------------------------------------------");
+        }
+    }
+
+    //empatar jogo
+    public void  Draw_Game(){
+        int cont =0;
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++) {
+                if(matriz[i][j]=='*'){
+                    cont++;
+                    i=4;
+                    j=4;
+                }
+            }
+        }
+        if(cont==0){
+            System.out.println("EMPATE");
+            this.setSomeone_win(true);
         }
     }
 }
