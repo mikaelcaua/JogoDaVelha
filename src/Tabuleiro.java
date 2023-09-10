@@ -9,8 +9,8 @@ public class Tabuleiro {
     private boolean someoneWin;
 
 
-    //faz todos os elementos da matriz ser igual 0
-    //someone_win igual a falso, pq ta no inicio do jogo
+    //faz todos os elementos da matriz ser igual *
+    //someoneWin igual a falso, pq ta no inicio do jogo
     public Tabuleiro(){
         for(int i=0;i< matriz.length;i++){
             for(int j=0;j<matriz[0].length;j++){
